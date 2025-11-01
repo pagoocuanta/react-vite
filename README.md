@@ -205,3 +205,5 @@ If you'd like, I can:
 - Update client/global.css and tailwind.config.ts to implement the color palette from the attached images.
 
 Done: README.md updated with step-by-step GitHub repo setup and deployment guide.
+#   r e a c t - v i t e  
+ 

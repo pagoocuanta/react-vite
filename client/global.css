@@ -1,0 +1,285 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /**
+   * Tailwind CSS theme
+   * tailwind.config.ts expects the following color variables to be expressed as HSL values.
+   * A different format will require also updating the theme in tailwind.config.ts.
+   */
+  :root {
+    /* Page background: light neutral gray */
+    --background: 0 0% 99%;
+    --foreground: 230 12% 12%;
+
+    /* Cards should be pure white for clean contrast */
+    --card: 0 0% 100%;
+    --card-foreground: 230 12% 12%;
+
+    /* Popovers use the same white surface */
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 12% 12%;
+
+    /* Primary - keep brand purple */
+    --primary: 262 60% 32%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary */
+    --secondary: 262 45% 88%;
+    --secondary-foreground: 230 12% 12%;
+
+    /* Muted surfaces (subtle separators and light panels) */
+    --muted: 0 0% 99%;
+    --muted-foreground: 230 14% 48%;
+
+    /* Accent - success */
+    --accent: 140 60% 60%;
+    --accent-foreground: 230 12% 12%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders should be subtle on the light gray background */
+    --border: 0 0% 90%;
+    --input: 0 0% 100%;
+    --ring: 262 60% 40%;
+
+    --radius: 0.75rem;
+    --header-height: 72px;
+
+    /* Sidebar colors (light variant) */
+    --sidebar-background: 0 0% 99%;
+    --sidebar-foreground: 230 12% 12%;
+    --sidebar-primary: 262 60% 32%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 262 45% 88%;
+    --sidebar-accent-foreground: 230 12% 12%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 262 60% 40%;
+
+    /* Brand colors remain the same */
+    --gruppy-orange: 262 60% 32%;
+    --gruppy-orange-light: 262 45% 88%;
+    /* Use primary brand purple for dashboard blue accents */
+    --gruppy-blue: 262 60% 32%;
+    --gruppy-blue-light: 262 60% 48%;
+    --gruppy-green: 140 60% 60%;
+    --gruppy-green-light: 140 60% 85%;
+    --gruppy-purple: 262 60% 32%;
+    --gruppy-purple-light: 262 45% 88%;
+  }
+
+  .dark {
+    --background: 260 15% 12%;
+    --foreground: 210 40% 98%;
+
+    --card: 260 15% 16%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 260 15% 16%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 262 60% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 262 45% 22%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 260 15% 16%;
+    --muted-foreground: 210 20% 65%;
+
+    --accent: 140 60% 55%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 260 15% 20%;
+    --input: 260 15% 20%;
+    --ring: 262 60% 48%;
+
+    --sidebar-background: 260 15% 12%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 262 60% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 262 45% 22%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 260 15% 20%;
+    --sidebar-ring: 262 60% 48%;
+
+    /* Dark mode brand colors */
+    --gruppy-orange: 262 60% 48%;
+    --gruppy-orange-light: 262 45% 35%;
+    --gruppy-blue: 199 89% 65%;
+    --gruppy-blue-light: 199 89% 35%;
+    --gruppy-green: 140 60% 55%;
+    --gruppy-green-light: 140 60% 35%;
+    --gruppy-purple: 262 60% 48%;
+    --gruppy-purple-light: 262 45% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* Disable caret on non-input elements */
+  *:not(input):not(textarea):not([contenteditable="true"]) {
+    caret-color: transparent;
+  }
+
+  /* Ensure caret is visible in input fields */
+  input,
+  textarea,
+  [contenteditable="true"] {
+    caret-color: auto;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary));
+  }
+
+  /* Bounce animation for buttons */
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-2px);
+    }
+  }
+
+  .animate-bounce-gentle {
+    animation: bounce 0.3s ease-in-out;
+  }
+
+  /* Fade in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out;
+  }
+
+  /* Left-border color for in-progress tasks (category: Bezig) */
+  .border-l-inprogress {
+    --tw-border-opacity: 1;
+    border-left-color: hsl(24 94% 50% / var(--tw-border-opacity)); /* vivid orange */
+  }
+
+  /* Card and panel styles to give depth and rounded corners */
+  .card {
+    background: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-shadow: 0 8px 20px rgba(16,24,40,0.06);
+    padding: 1rem;
+  }
+
+  .panel {
+    background: hsl(var(--popover));
+    color: hsl(var(--popover-foreground));
+    border-radius: calc(var(--radius) - 0.125rem);
+    box-shadow: 0 6px 12px rgba(16,24,40,0.04);
+    padding: 0.75rem;
+  }
+
+  a {
+    color: hsl(var(--primary));
+  }
+
+  .text-link {
+    color: hsl(var(--primary));
+  }
+
+  /* Utility class for primary-styled elements where component isn't used */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+
+  /* Pill-style header buttons */
+  .pill-button {
+    @apply inline-flex items-center gap-2 rounded-full text-sm font-semibold text-primary-foreground px-4 py-2;
+    background: linear-gradient(90deg, hsl(var(--primary)) 0%, hsl(var(--gruppy-purple)) 50%, hsl(var(--gruppy-blue)) 100%);
+    box-shadow: 0 6px 18px rgba(99,102,241,0.18);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    height: 36px;
+  }
+
+  .pill-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(99,102,241,0.22);
+  }
+
+  .pill-button.pill-secondary {
+    background: linear-gradient(90deg, hsl(var(--primary) / 0.9) 0%, hsl(var(--primary) / 0.75) 100%);
+  }
+
+  /* Nav tab style: clean text with underline indicator */
+  .nav-tab {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    color: hsl(var(--muted-foreground));
+    border-radius: 6px;
+    text-decoration: none;
+    transition: color 0.15s ease, transform 0.12s ease;
+  }
+
+  .nav-tab:hover {
+    color: hsl(var(--foreground));
+    transform: translateY(-2px);
+  }
+
+  .nav-tab::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -8px;
+    height: 3px;
+    width: 0px;
+    background: hsl(var(--primary));
+    border-radius: 4px;
+    transition: width 0.2s ease, opacity 0.2s ease;
+    opacity: 0;
+  }
+
+  .nav-tab:hover::after,
+  .nav-tab.active::after {
+    width: 28px;
+    opacity: 1;
+  }
+}

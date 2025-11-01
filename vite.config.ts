@@ -3,9 +3,9 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 export default defineConfig(({ mode }) => ({
+  base: process.env.VITE_BASE_PATH || "/", // ✅ Add this line
   server: {
     host: true,
-    // Allow overriding dev port via environment (useful for Builder preview proxy)
     port: parseInt(process.env.PORT ?? process.env.VITE_DEV_PORT ?? '5173', 10),
     hmr: { overlay: false },
     proxy: {

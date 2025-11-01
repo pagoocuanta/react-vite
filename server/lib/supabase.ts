@@ -7,20 +7,26 @@ const supabaseUrl =
 const supabaseServiceKey =
   process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabaseServiceKey) {
-  console.error('Missing Supabase environment variables. Please check your .env file.');
-  console.error('SUPABASE_URL:', process.env.SUPABASE_URL);
-  console.error('SUPABASE_SERVICE_ROLE_KEY:', process.env.SUPABASE_SERVICE_ROLE_KEY);
-  throw new Error('Missing Supabase environment variables. Please check your .env file.');
+if (!supabaseUrl) {
+  console.error('Missing Supabase URL. Please set SUPABASE_URL (or VITE_SUPABASE_URL) in your environment.');
+  console.error('Current values:', { SUPABASE_URL: process.env.SUPABASE_URL, VITE_SUPABASE_URL: process.env.VITE_SUPABASE_URL });
+  throw new Error('Missing Supabase URL. Please set SUPABASE_URL');
 }
 
-// Create Supabase client with service role key for server-side operations
-export const supabase = createClient(supabaseUrl, supabaseServiceKey, {
+if (!supabaseServiceKey) {
+  console.warn('Supabase service role key not found. Falling back to anon key if available; some server-side operations may be restricted.');
+  console.warn('To fix this, set SUPABASE_SERVICE_ROLE_KEY in your production environment (Vercel Environment Variables).');
+}
+
+// Create Supabase client with whichever key is available (service role preferred)
+export const supabase = createClient(supabaseUrl, supabaseServiceKey || '', {
   auth: {
     autoRefreshToken: false,
     persistSession: false
   }
 });
+
+export const SUPABASE_USING_SERVICE_ROLE = Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_SERVICE_ROLE_KEY);
 
 // Database types (generated from your schema)
 export interface Database {
